@@ -1,10 +1,22 @@
 import { useState, useDeferredValue } from "react";
-import { Search, ArrowUpRight, Plus, Minus, Check, Clock } from "lucide-react";
+import {
+  Search,
+  ArrowUpRight,
+  Plus,
+  Check,
+  Clock,
+  ArrowRight,
+} from "lucide-react";
 import { services, money } from "../../data/services";
 import { searchServices } from "../../lib/catalog";
-import { specialtyLabels, type BookingIntent } from "../../types/domain";
+import {
+  specialtyLabels,
+  type BookingIntent,
+  type Service,
+} from "../../types/domain";
 import { SectionHeading } from "../../components/SectionHeading";
 import { Button } from "../../components/ui/button";
+import { Modal, markFocus } from "../../components/ui/dialog";
 export function ServiceCatalog({
   onBook,
 }: {
@@ -12,16 +24,16 @@ export function ServiceCatalog({
 }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
-  const [expanded, setExpanded] = useState("cavity");
-  const deferred = useDeferredValue(query);
-  const found = searchServices(deferred, category);
+  const [selected, setSelected] = useState<Service | null>(null);
+  const found = searchServices(useDeferredValue(query), category);
+  const book = (s: Service) =>
+    onBook({ serviceId: s.id, specialty: s.specialty });
   return (
     <section id="services" className="section">
       <div className="container">
         <SectionHeading
-          eyebrow="ПОНЯТНАЯ СТОМАТОЛОГИЯ"
-          title="Забота, которая вам нужна"
-          text="От профилактики до полного восстановления улыбки. Объясним варианты и заранее обсудим стоимость."
+          title="Услуги и цены"
+          text="Стоимость зависит от объёма лечения. Врач составит план и согласует его с вами после осмотра."
         />
         <div className="catalog-toolbar">
           <div className="category-tabs">
@@ -69,71 +81,45 @@ export function ServiceCatalog({
             />
           </label>
         </div>
-        <div className="service-list">
-          {found.map((s, i) => (
-            <article
-              key={s.id}
-              className={"service-row " + (expanded === s.id ? "expanded" : "")}
-            >
-              <button
-                className="service-toggle"
-                onClick={() => setExpanded(expanded === s.id ? "" : s.id)}
-                aria-expanded={expanded === s.id}
-                aria-controls={"service-" + s.id}
-              >
-                <span className="service-index">
-                  {String(services.indexOf(s) + 1).padStart(2, "0")}
+        <div className="service-cards">
+          {found.map((s) => (
+            <article className="treatment-card" key={s.id} aria-label={s.name}>
+              <span className="treatment-category">{s.category}</span>
+              <h3>{s.name}</h3>
+              <p className="treatment-description">{s.description}</p>
+              <div className="treatment-cost">
+                <strong>от {money(s.priceMin)}</strong>
+                <span>
+                  <Clock size={13} />
+                  {s.durationMinutes} мин
                 </span>
-                <span className="service-name">{s.name}</span>
-                <span className="service-price">от {money(s.priceMin)}</span>
-                <span className="service-expand">
-                  {expanded === s.id ? <Minus size={18} /> : <Plus size={18} />}
-                </span>
-              </button>
-              {expanded === s.id && (
-                <div id={"service-" + s.id} className="service-details">
-                  <div>
-                    <span className="tiny">{s.medicalName}</span>
-                    <p>{s.description}</p>
-                    <span className="detail-meta">
-                      <Clock size={15} />
-                      {s.durationMinutes} минут · {specialtyLabels[s.specialty]}
-                    </span>
-                  </div>
-                  <div>
-                    <h4>Что входит</h4>
-                    {s.included.map((x) => (
-                      <p className="included-item" key={x}>
-                        <Check size={14} />
-                        {x}
-                      </p>
-                    ))}
-                    <p className="tiny">Отдельно: {s.extra.join(", ")}.</p>
-                  </div>
-                  <div>
-                    <p className="price-range">
-                      {money(s.priceMin)} — {money(s.priceMax)}
-                    </p>
-                    <p className="tiny">Ориентир до осмотра</p>
-                    <Button
-                      size="sm"
-                      onClick={() =>
-                        onBook({ serviceId: s.id, specialty: s.specialty })
-                      }
-                    >
-                      Выбрать время
-                      <ArrowUpRight size={16} />
-                    </Button>
-                  </div>
-                </div>
-              )}
+              </div>
+              <div className="treatment-actions">
+                <button
+                  className="treatment-details-button"
+                  onClick={() => {
+                    markFocus();
+                    setSelected(s);
+                  }}
+                >
+                  Что входит
+                  <Plus size={14} />
+                </button>
+                <button
+                  className="treatment-book-button"
+                  onClick={() => book(s)}
+                >
+                  Записаться
+                  <ArrowUpRight size={17} />
+                </button>
+              </div>
             </article>
           ))}
           {!found.length && (
             <div className="empty-state">
               <Search />
-              <h3>Пока ничего не нашли</h3>
-              <p>Попробуйте другой симптом или название услуги.</p>
+              <h3>Услуга не найдена</h3>
+              <p>Попробуйте другой симптом или название.</p>
               <Button
                 variant="outline"
                 onClick={() => {
@@ -146,11 +132,58 @@ export function ServiceCatalog({
             </div>
           )}
         </div>
-        <p className="section-footnote">
-          Цены демонстрационные. Точный план и итоговую стоимость согласуем
-          после диагностики.
+        <p className="catalog-price-note">
+          Точную стоимость лечения определяет врач после диагностики.
         </p>
       </div>
+      <Modal
+        open={!!selected}
+        onOpenChange={(open) => {
+          if (!open) setSelected(null);
+        }}
+        title={selected?.name || "Услуга"}
+        description={selected?.medicalName}
+      >
+        {selected && (
+          <div className="treatment-modal">
+            <p>{selected.description}</p>
+            <div className="treatment-modal-meta">
+              <span>
+                <Clock size={15} />
+                {selected.durationMinutes} минут
+              </span>
+              <span>{specialtyLabels[selected.specialty]}</span>
+            </div>
+            <h4>В стоимость входят</h4>
+            <ul>
+              {selected.included.map((item) => (
+                <li key={item}>
+                  <Check size={15} />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <h4>Оплачивается отдельно</h4>
+            <p>{selected.extra.join(", ")}.</p>
+            <div className="treatment-modal-price">
+              <strong>
+                {money(selected.priceMin)} — {money(selected.priceMax)}
+              </strong>
+              <span>Точная стоимость после осмотра</span>
+            </div>
+            <Button
+              onClick={() => {
+                const s = selected;
+                setSelected(null);
+                book(s);
+              }}
+            >
+              Выбрать время
+              <ArrowRight size={17} />
+            </Button>
+          </div>
+        )}
+      </Modal>
     </section>
   );
 }

@@ -25,7 +25,6 @@ export function DemoSchedulePage() {
         На главную
       </a>
       <SectionHeading
-        eyebrow="УПРАВЛЕНИЕ ДЕМОНСТРАЦИЕЙ"
         title={
           <span id="demo-heading" tabIndex={-1} data-dialog-focus-fallback>
             Демонстрационное расписание

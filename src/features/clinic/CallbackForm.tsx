@@ -37,7 +37,7 @@ export function CallbackForm() {
         open={open}
         onOpenChange={close}
         title="Давайте поговорим"
-        description="Демонстрационная форма. Реальный обратный звонок не оформляется."
+        description="Отправка заявки пока не подключена. Данные останутся только на этой странице."
       >
         <form
           noValidate
@@ -48,9 +48,7 @@ export function CallbackForm() {
             setErrors(next);
             if (Object.keys(next).length) return;
             close(false);
-            notify(
-              "Форма заполнена. Это демонстрация: данные не отправлены, обратный звонок не заказан.",
-            );
+            notify("Данные не отправлены: форма пока не подключена к клинике.");
           }}
         >
           <ErrorSummary errors={errors} />
@@ -93,7 +91,7 @@ export function CallbackForm() {
               checked={consent}
               onChange={(e) => setConsent(e.target.checked)}
             />
-            <span>Согласен на локальную обработку данных для демонстрации</span>
+            <span>Согласен на локальную обработку введённых данных</span>
           </label>
           {errors.consent && <p className="field-error">{errors.consent}</p>}
           <Button type="submit">

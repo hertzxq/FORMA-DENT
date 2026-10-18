@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import { Brand } from "./Header";
 export function Footer() {
   return (
@@ -11,21 +10,14 @@ export function Footer() {
             <br />
             человек всегда на первом месте.
           </p>
-          <a href="/demo-schedule">
-            Демонстрационное расписание
-            <ArrowUpRight size={15} />
-          </a>
         </div>
         <div className="footer-bottom">
-          <span>
-            © {new Date().getFullYear()} FORMA DENT · Концепция стоматологии
-          </span>
-          <span>Демонстрационный проект. Не является публичной офертой.</span>
+          <span>© {new Date().getFullYear()} FORMA DENT</span>
+          <span>Информация на сайте не является публичной офертой.</span>
           <a href="/#">Наверх ↑</a>
         </div>
         <p className="footer-medical">
-          Имеются противопоказания. Необходима консультация специалиста. Все
-          услуги, адреса, врачи, цены и отзывы на сайте демонстрационные.
+          Имеются противопоказания. Необходима консультация специалиста.
         </p>
       </div>
     </footer>

@@ -16,14 +16,8 @@ export function Doctors({ onBook }: { onBook: (i: BookingIntent) => void }) {
     <section id="doctors" className="section">
       <div className="container">
         <SectionHeading
-          eyebrow="ЛЮДИ, КОТОРЫМ ДОВЕРЯЮТ"
-          title={
-            <>
-              Профессионализм.
-              <br />И человеческое отношение.
-            </>
-          }
-          text="Знакомимся, слышим и помогаем. Наш подход — лечить человека, а не только зуб."
+          title="Наши врачи"
+          text="Терапевты, хирург, ортодонт и ортопед. Откройте карточку, чтобы узнать больше о специалисте."
           action={
             <Button variant="outline" onClick={() => setAll(!all)}>
               {all ? "Показать меньше" : "Все специалисты"}
@@ -44,7 +38,7 @@ export function Doctors({ onBook }: { onBook: (i: BookingIntent) => void }) {
               <div
                 className="doctor-photo"
                 role="img"
-                aria-label={`Демонстрационный портрет: ${d.name}`}
+                aria-label={`Портрет: ${d.name}`}
                 style={{
                   backgroundImage: "url(/images/team.jpg)",
                   backgroundSize: "300% 200%",
@@ -66,9 +60,6 @@ export function Doctors({ onBook }: { onBook: (i: BookingIntent) => void }) {
             </button>
           ))}
         </div>
-        <p className="section-footnote">
-          Демонстрационные профили и сгенерированные портреты специалистов.
-        </p>
       </div>
       <Modal
         open={!!selected}
@@ -89,7 +80,6 @@ export function Doctors({ onBook }: { onBook: (i: BookingIntent) => void }) {
               Подробно объясняет варианты, согласует план и помогает чувствовать
               себя спокойно на каждом этапе.
             </p>
-            <p className="tiny">Демонстрационный профиль специалиста.</p>
             <Button
               onClick={() => {
                 const d = selected;

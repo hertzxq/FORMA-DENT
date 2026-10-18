@@ -87,10 +87,9 @@ export function Schedule() {
     <section id="booking" className="section booking-section">
       <div className="container">
         <SectionHeading
-          eyebrow="БЕЗ ЗВОНКОВ И ОЖИДАНИЯ"
           title={
             <span id="booking-heading" tabIndex={-1} data-dialog-focus-fallback>
-              Ваше время для заботы о себе
+              Записаться на приём
             </span>
           }
           text="Выберите удобный день. Всё остальное мы уже продумали."
@@ -326,10 +325,6 @@ export function Schedule() {
             </p>
           </div>
         </div>
-        <p className="section-footnote">
-          Демонстрационное расписание. Для реальной записи требуется подключение
-          системы клиники.
-        </p>
       </div>
       {appointment && (
         <BookingForm

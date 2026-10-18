@@ -19,7 +19,7 @@ export function Brand() {
         <path d="M14 7v26" stroke="currentColor" opacity=".4" />
       </svg>
       <span>
-        FORMA DENT<small>СТОМАТОЛОГИЯ С ВНИМАНИЕМ К ВАМ</small>
+        FORMA DENT<small>СТОМАТОЛОГИЯ · МОСКВА</small>
       </span>
     </a>
   );
@@ -31,7 +31,6 @@ export function Header() {
     ["Услуги и цены", "services"],
     ["О клинике", "clinic"],
     ["Врачи", "doctors"],
-    ["Отзывы", "reviews"],
     ["Контакты", "contacts"],
   ];
   return (
@@ -42,10 +41,7 @@ export function Header() {
             <MapPin size={12} />
             Москва · Хамовники и Патриаршие
           </span>
-          <span>
-            Ежедневно 09:00–20:00 <span className="topbar-dot">·</span>{" "}
-            Демонстрационный проект
-          </span>
+          <span>Ежедневно 09:00–20:00</span>
         </div>
       </div>
       <header className="header">

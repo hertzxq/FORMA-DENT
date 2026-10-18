@@ -33,17 +33,12 @@ export function ToothNavigator({
     <section id="navigator" className="section navigator-section">
       <div className="container">
         <SectionHeading
-          eyebrow="ПОЙМЁМ, ЧТО ВАС БЕСПОКОИТ"
-          title={<>Первый шаг к здоровой улыбке</>}
+          title="Выберите зуб и симптом"
           text="Выберите зуб и расскажите об ощущениях. Мы поможем разобраться, с чего начать."
         />
         <div className="navigator-layout">
           <div className="jaw-panel">
             <div className="jaw-panel-top">
-              <span className="pill">
-                <span className="status-dot" />
-                Интерактивная схема
-              </span>
               <span className="tiny">32 зуба · FDI</span>
             </div>
             <svg
@@ -176,10 +171,6 @@ export function ToothNavigator({
               ))}
             </div>
             <div className="recommendation" aria-live="polite">
-              <div className="recommendation-label">
-                <span className="status-dot" />
-                Рекомендуем начать с осмотра
-              </div>
               <h3>
                 {service
                   ? specialtyLabels[service.specialty]

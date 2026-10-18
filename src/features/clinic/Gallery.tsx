@@ -12,9 +12,8 @@ export function Gallery({
     <section id="clinic" className="section clinic-section">
       <div className="container">
         <SectionHeading
-          eyebrow="ПРОСТРАНСТВО СПОКОЙСТВИЯ"
-          title="Здесь можно выдохнуть"
-          text="Мягкий свет, природные материалы и продуманные детали. Пространство, в котором комфортно заботиться о себе."
+          title="Клиника"
+          text="Приёмная, кабинеты и зона ожидания."
         />
         <div className="gallery-grid">
           {images.map((img, i) => (
@@ -29,23 +28,12 @@ export function Gallery({
             >
               <img src={img.src} alt={img.alt} loading="lazy" />
               <div>
-                <span>
-                  {
-                    [
-                      "Светлая приёмная",
-                      "Место для спокойствия",
-                      "Внимание к деталям",
-                    ][i]
-                  }
-                </span>
+                <span>{["Приёмная", "Кабинет", "Зона ожидания"][i]}</span>
                 <ArrowUpRight size={20} />
               </div>
             </button>
           ))}
         </div>
-        <p className="section-footnote">
-          Архитектурные визуализации концепции FORMA DENT.
-        </p>
       </div>
       <Modal
         open={selected !== null}
@@ -53,7 +41,7 @@ export function Gallery({
           if (!o) setSelected(null);
         }}
         title="Пространство FORMA DENT"
-        description="Демонстрационная визуализация интерьера"
+        description={selected !== null ? images[selected].alt : undefined}
         wide
       >
         {selected !== null && (

@@ -9,9 +9,7 @@ import {
   ScanLine,
   Plus,
   Minus,
-  Star,
   MapPin,
-  Clock,
   Check,
   Leaf,
   CalendarDays,
@@ -25,10 +23,10 @@ import { Gallery } from "../features/clinic/Gallery";
 import { BeforeAfter } from "../features/clinic/BeforeAfter";
 import { CallbackForm } from "../features/clinic/CallbackForm";
 import { Schedule } from "../features/booking/Schedule";
-import { TaxWizard } from "../features/tax/TaxWizard";
 import { useBooking } from "../features/booking/BookingContext";
 import { branches } from "../data/branches";
-import { faqs, reviews } from "../data/content";
+import { faqs } from "../data/content";
+import { mapLocations } from "../data/mapLocations";
 export function HomePage() {
   const { openBooking } = useBooking();
   const reduced = useReducedMotion();
@@ -43,10 +41,6 @@ export function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
         >
-          <span className="pill hero-eyebrow">
-            <span className="status-dot" />
-            Стоматология с вниманием к вам
-          </span>
           <h1>
             Ваша улыбка.
             <br />В <span className="serif-accent">хороших</span>
@@ -54,10 +48,11 @@ export function HomePage() {
             руках.
           </h1>
           <p className="hero-description">
-            Современная стоматология, где вас слышат.
+            Лечение зубов, имплантация и ортодонтия.
             <br className="desktop-br" />
-            Заботимся о здоровье, сохраняем естественность
-            <br className="desktop-br" />и помогаем улыбаться свободно.
+            Составим план лечения и подберём
+            <br className="desktop-br" />
+            удобное время приёма.
           </p>
           <div className="hero-actions">
             <Button onClick={() => openBooking({})}>
@@ -74,8 +69,8 @@ export function HomePage() {
               <ShieldCheck size={23} strokeWidth={1.4} />
             </div>
             <div>
-              <strong>Ваш комфорт — часть лечения</strong>
-              <span>Понятный план. Бережный подход. Без спешки.</span>
+              <strong>План и стоимость — до начала лечения</strong>
+              <span>Обсудим этапы и ответим на вопросы.</span>
             </div>
           </div>
         </motion.div>
@@ -87,28 +82,23 @@ export function HomePage() {
         >
           <img
             src="/images/clinic.jpg"
-            alt="Архитектурная визуализация: светлая приёмная FORMA DENT с креслами и натуральным камнем"
+            alt="Приёмная стоматологической клиники"
             fetchPriority="high"
             width="1536"
             height="1024"
           />
-          <div className="image-top-label">
-            <span className="image-label-dot" />
-            ПРОСТРАНСТВО ДЛЯ ВАШЕГО СПОКОЙСТВИЯ
-          </div>
           <div className="hero-photo-card">
             <span className="photo-card-icon">
               <Leaf size={23} strokeWidth={1.3} />
             </span>
             <div>
-              <strong>Всё начинается с заботы</strong>
-              <span>О вас. О деталях. О результате.</span>
+              <strong>Первый приём</strong>
+              <span>Осмотр, диагностика и план лечения</span>
             </div>
             <a href="#clinic" aria-label="Посмотреть клинику">
               <ArrowUpRight size={20} />
             </a>
           </div>
-          <span className="image-caption">Визуализация концепции клиники</span>
         </motion.div>
       </section>
       <section className="benefits container" aria-label="Наш подход">
@@ -148,14 +138,13 @@ export function HomePage() {
       <section className="section packages-section">
         <div className="container">
           <SectionHeading
-            eyebrow="ПРОДУМАНО ДЛЯ ВАС"
-            title="Больше ясности. Меньше волнений."
+            title="Планы лечения"
             text="Комплексные решения для разных задач. Понятный состав — ещё до первого приёма."
           />
           <div className="packages-grid">
             {[
               {
-                name: "Знакомство с клиникой",
+                name: "Лечение кариеса",
                 tag: "ПЕРВЫЙ ШАГ",
                 price: "от 6 500 ₽",
                 text: "Понять состояние зубов и выбрать дальнейший путь.",
@@ -168,7 +157,7 @@ export function HomePage() {
                 note: "Снимки оплачиваются отдельно",
               },
               {
-                name: "Здоровая основа",
+                name: "Профессиональная гигиена",
                 tag: "РЕКОМЕНДУЕМ",
                 price: "от 6 900 ₽",
                 text: "Профессиональная забота, которую стоит сделать привычкой.",
@@ -181,7 +170,7 @@ export function HomePage() {
                 note: "Лечение дёсен — по отдельному плану",
               },
               {
-                name: "Новая уверенность",
+                name: "Керамический винир",
                 tag: "ИНДИВИДУАЛЬНО",
                 price: "от 35 000 ₽",
                 text: "Эстетика улыбки с вниманием к вашим особенностям.",
@@ -198,7 +187,6 @@ export function HomePage() {
                 className={"package-card " + (i === 1 ? "featured" : "")}
                 key={p.name}
               >
-                <span className="tiny">{p.tag}</span>
                 <h3>{p.name}</h3>
                 <p>{p.text}</p>
                 <div className="package-price">{p.price}</div>
@@ -231,15 +219,15 @@ export function HomePage() {
         images={[
           {
             src: "/images/clinic.jpg",
-            alt: "Приёмная с натуральным камнем и мягким светом",
+            alt: "Приёмная",
           },
           {
             src: "/images/room.jpg",
-            alt: "Визуализация современного стоматологического кабинета",
+            alt: "Стоматологический кабинет",
           },
           {
             src: "/images/lounge.jpg",
-            alt: "Визуализация зоны отдыха клиники",
+            alt: "Зона ожидания",
           },
         ]}
       />
@@ -247,54 +235,10 @@ export function HomePage() {
         before="/images/smile-before.svg"
         after="/images/smile-after.svg"
       />
-      <TaxWizard />
-      <section id="reviews" className="section">
-        <div className="container">
-          <SectionHeading
-            eyebrow="СЛОВА, КОТОРЫЕ ВАЖНЫ"
-            title="Забота чувствуется"
-            action={
-              <span className="pill">
-                <Star size={14} />
-                Демонстрационные отзывы
-              </span>
-            }
-          />
-          <div className="reviews-grid">
-            {reviews.map((r) => (
-              <article className="review-card" key={r.name}>
-                <div
-                  className="review-stars"
-                  aria-label="Иллюстративная оценка: 5 из 5"
-                >
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <Star key={i} size={14} fill="currentColor" />
-                  ))}
-                </div>
-                <p>«{r.text}»</p>
-                <div className="review-person">
-                  <span>{r.initial}</span>
-                  <div>
-                    <strong>{r.name}</strong>
-                    <small>{r.date} · Пример отзыва</small>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
       <section className="section faq-section">
         <div className="container faq-layout">
           <SectionHeading
-            eyebrow="ОТВЕЧАЕМ СПОКОЙНО"
-            title={
-              <>
-                Всё, что хочется
-                <br />
-                спросить
-              </>
-            }
+            title="Вопросы и ответы"
             text="Остались вопросы? Можно начать с разговора."
             action={<CallbackForm />}
           />
@@ -318,9 +262,8 @@ export function HomePage() {
       <section id="contacts" className="section">
         <div className="container">
           <SectionHeading
-            eyebrow="БУДЕМ РАДЫ ЗНАКОМСТВУ"
-            title="Рядом с вами"
-            text="Два пространства в центре Москвы. Один внимательный подход."
+            title="Адреса и контакты"
+            text="Хамовники и Патриаршие пруды. Выберите район, чтобы посмотреть карту."
           />
           <div className="contacts-layout">
             <div className="contact-card">
@@ -336,17 +279,14 @@ export function HomePage() {
                   </button>
                 ))}
               </div>
-              <h3>FORMA DENT · {branches[branch].name}</h3>
+              <h3>{branches[branch].name}</h3>
               <p className="contact-detail">
                 <MapPin size={18} />
-                {branches[branch].address}
+                {mapLocations[branches[branch].id].address}
               </p>
-              <p className="contact-detail">
-                <Clock size={18} />
-                {branches[branch].hours}
-              </p>
-              <p className="tiny">
-                Демонстрационный адрес, не действующая клиника.
+              <p className="map-reference">
+                На карте — {mapLocations[branches[branch].id].name}, адрес
+                приведён как ориентир.
               </p>
               <div className="contact-actions">
                 <Button onClick={() => openBooking({})}>
@@ -356,34 +296,32 @@ export function HomePage() {
                 <CallbackForm />
               </div>
             </div>
-            <div
-              className="map-illustration"
-              role="img"
-              aria-label={`Условная схема расположения демонстрационного филиала ${branches[branch].name}`}
-            >
-              <div className="map-river" />
-              <div className="map-road road-1" />
-              <div className="map-road road-2" />
-              <div className="map-road road-3" />
-              <div className="map-road road-4" />
-              <div className={"map-pin " + (branch === 1 ? "pin-second" : "")}>
-                <MapPin size={26} />
-                <span>
-                  FORMA DENT<small>{branches[branch].name}</small>
-                </span>
-              </div>
-              <span className="map-caption">Условная схема · Демонстрация</span>
-              <span className="map-park">ЗЕЛЁНЫЙ КВАРТАЛ</span>
+            <div className="yandex-map-panel">
+              <iframe
+                key={branches[branch].id}
+                src={mapLocations[branches[branch].id].embedUrl}
+                title={
+                  "Яндекс Карты — " + mapLocations[branches[branch].id].name
+                }
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+              <a
+                className="yandex-map-link"
+                href={mapLocations[branches[branch].id].mapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Открыть в Яндекс Картах
+                <ArrowUpRight size={16} />
+              </a>
             </div>
           </div>
         </div>
       </section>
       <section className="final-cta container">
-        <span className="eyebrow">ВАША УЛЫБКА — ЭТО ВЫ</span>
-        <h2>
-          Начнём с простого.
-          <br />С заботы о вас.
-        </h2>
+        <h2>Запишитесь на первый приём</h2>
         <Button onClick={() => openBooking({})}>
           Выбрать удобное время
           <ArrowUpRight size={18} />
