@@ -11,7 +11,6 @@ import {
   Minus,
   MapPin,
   Check,
-  Leaf,
   CalendarDays,
 } from "lucide-react";
 import { Button } from "../components/ui/button";
@@ -87,18 +86,6 @@ export function HomePage() {
             width="1536"
             height="1024"
           />
-          <div className="hero-photo-card">
-            <span className="photo-card-icon">
-              <Leaf size={23} strokeWidth={1.3} />
-            </span>
-            <div>
-              <strong>Первый приём</strong>
-              <span>Осмотр, диагностика и план лечения</span>
-            </div>
-            <a href="#clinic" aria-label="Посмотреть клинику">
-              <ArrowUpRight size={20} />
-            </a>
-          </div>
         </motion.div>
       </section>
       <section className="benefits container" aria-label="Наш подход">

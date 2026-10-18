@@ -23,7 +23,9 @@ export interface Doctor {
   id: string;
   name: string;
   specialty: Specialty;
-  experienceYears: number;
+  displaySpecialty: string;
+  clinicName: string;
+  profileUrl: string;
   branchIds: string[];
   serviceIds: string[];
   image: string;

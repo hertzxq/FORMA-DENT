@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, ArrowRight, ShieldCheck, CalendarDays } from "lucide-react";
+import { Check, ArrowRight, CalendarDays } from "lucide-react";
 import type { Appointment } from "../../types/domain";
 import { doctors } from "../../data/doctors";
 import { branches } from "../../data/branches";
@@ -36,9 +36,7 @@ export function BookingForm({
       }}
       title={done ? "Время сохранено" : "Остался один шаг"}
       description={
-        done
-          ? "Время сохранено в вашем браузере"
-          : "Выбранное время сохранится в этом браузере. Заявка не отправляется в клинику."
+        done ? "Время сохранено в вашем браузере" : "Укажите имя и телефон"
       }
     >
       {done ? (
@@ -53,10 +51,6 @@ export function BookingForm({
             {doctor.name} · {branch.name}
           </p>
           <p>{service.name}</p>
-          <div className="demo-notice">
-            Это локальная запись. Для реального подтверждения требуется
-            подключение системы клиники.
-          </div>
           {!persisted && (
             <p role="alert">
               Хранилище недоступно: запись сохранена только до перезагрузки
@@ -101,7 +95,11 @@ export function BookingForm({
               <span>{service.name}</span>
             </div>
           </div>
-          <ErrorSummary errors={errors} />
+          <ErrorSummary
+            errors={Object.fromEntries(
+              Object.entries(errors).filter(([key]) => key !== "consent"),
+            )}
+          />
           <label htmlFor="name">
             Ваше имя
             <input
@@ -136,27 +134,19 @@ export function BookingForm({
               checked={consent}
               onChange={(e) => setConsent(e.target.checked)}
               aria-invalid={!!errors.consent}
-              aria-describedby={errors.consent ? "consent-error" : undefined}
+              aria-required="true"
             />
-            <span>
-              Согласен на локальную обработку введённых данных. Данные не
-              отправляются в клинику.
-            </span>
+            <span>Согласен на обработку персональных данных</span>
           </label>
-          <FieldError name="consent" errors={errors} />
           {errors.time && (
             <p id="time" tabIndex={-1} className="field-error">
               {errors.time}
             </p>
           )}
-          <Button type="submit">
+          <Button type="submit" disabled={!consent}>
             Подтвердить запись
             <ArrowRight size={17} />
           </Button>
-          <p className="privacy-note">
-            <ShieldCheck size={15} />
-            Имя и телефон не сохраняются в браузере.
-          </p>
         </form>
       )}
     </Modal>

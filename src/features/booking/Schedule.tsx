@@ -5,7 +5,6 @@ import {
   ArrowRight,
   Clock,
   CalendarDays,
-  MapPin,
 } from "lucide-react";
 import { useBooking } from "./BookingContext";
 import { doctors } from "../../data/doctors";
@@ -313,16 +312,6 @@ export function Schedule() {
                 </Button>
               </div>
             )}
-            <div className="calendar-footer">
-              <span>
-                <MapPin size={14} />
-                {branches.find((b) => b.id === branch)?.name}
-              </span>
-              <span>Время московское · UTC+3</span>
-            </div>
-            <p className="tiny">
-              Слоты учитывают длительность услуги. Серые интервалы недоступны.
-            </p>
           </div>
         </div>
       </div>

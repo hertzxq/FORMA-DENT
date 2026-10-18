@@ -1490,16 +1490,20 @@ svg {
 }
 .faq-layout {
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 80px;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 40px;
 }
 .faq-layout .section-heading {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
-  gap: 24px;
+  justify-content: space-between;
+  gap: 32px;
   margin: 0;
+  padding: 36px;
+  border-radius: 18px;
+  background: #e8ede3;
+  min-height: 320px;
 }
 .callback-link {
   display: inline-flex;
@@ -3745,5 +3749,23 @@ input[type="checkbox"] {
   }
   .map-reference {
     font-size: 11px;
+  }
+}
+
+.tooth-reset {
+  margin-left: auto;
+  padding: 8px;
+  color: var(--green);
+  font-size: 11px;
+  text-decoration: underline;
+  flex-shrink: 0;
+}
+.selected-tooth h3 {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 700px) {
+  .faq-layout .section-heading {
+    padding: 26px;
+    min-height: 240px;
   }
 }

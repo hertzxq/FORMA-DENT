@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowUpRight, Menu, X, MapPin } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useBooking } from "../features/booking/BookingContext";
 export function Brand() {
@@ -18,9 +18,7 @@ export function Brand() {
         />
         <path d="M14 7v26" stroke="currentColor" opacity=".4" />
       </svg>
-      <span>
-        FORMA DENT<small>СТОМАТОЛОГИЯ · МОСКВА</small>
-      </span>
+      <span>FORMA DENT</span>
     </a>
   );
 }
@@ -35,15 +33,6 @@ export function Header() {
   ];
   return (
     <>
-      <div className="topbar">
-        <div className="container">
-          <span>
-            <MapPin size={12} />
-            Москва · Хамовники и Патриаршие
-          </span>
-          <span>Ежедневно 09:00–20:00</span>
-        </div>
-      </div>
       <header className="header">
         <div className="container header-inner">
           <Brand />

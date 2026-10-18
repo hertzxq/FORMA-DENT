@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   ArrowUpRight,
   ArrowRight,
-  Info,
   Clock,
   Check,
   MousePointer2,
@@ -19,9 +18,19 @@ export function ToothNavigator({
 }: {
   onBook: (i: BookingIntent) => void;
 }) {
-  const [selected, setSelected] = useState(36);
+  const [selected, setSelected] = useState<number[]>([36]);
   const [symptom, setSymptom] = useState("pain");
-  const tooth = teeth.find((t) => t.fdi === selected)!;
+  const tooth =
+    selected.length === 1
+      ? teeth.find((t) => t.fdi === selected[0])
+      : undefined;
+  function toggleTooth(fdi: number) {
+    setSelected((previous) =>
+      previous.includes(fdi)
+        ? previous.filter((value) => value !== fdi)
+        : [...previous, fdi],
+    );
+  }
   const current = symptoms.find((s) => s.id === symptom)!;
   const recommended = recommendServices(symptom);
   const service = recommended[0];
@@ -33,8 +42,8 @@ export function ToothNavigator({
     <section id="navigator" className="section navigator-section">
       <div className="container">
         <SectionHeading
-          title="Выберите зуб и симптом"
-          text="Выберите зуб и расскажите об ощущениях. Мы поможем разобраться, с чего начать."
+          title="Выберите зубы и симптом"
+          text="Можно отметить несколько зубов. Расскажите об ощущениях — мы поможем разобраться, с чего начать."
         />
         <div className="navigator-layout">
           <div className="jaw-panel">
@@ -84,17 +93,17 @@ export function ToothNavigator({
                     <g
                       key={fdi}
                       className={
-                        "tooth " + (selected === fdi ? "selected" : "")
+                        "tooth " + (selected.includes(fdi) ? "selected" : "")
                       }
                       tabIndex={0}
                       role="button"
-                      aria-pressed={selected === fdi}
+                      aria-pressed={selected.includes(fdi)}
                       aria-label={`Зуб ${fdi}, ${t.name}`}
-                      onClick={() => setSelected(fdi)}
+                      onClick={() => toggleTooth(fdi)}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
-                          setSelected(fdi);
+                          toggleTooth(fdi);
                         }
                       }}
                       transform={`translate(${x},${y}) rotate(${((j === 0 ? a : -a) * 180) / Math.PI})`}
@@ -140,21 +149,41 @@ export function ToothNavigator({
             </svg>
             <div className="jaw-help">
               <MousePointer2 size={15} />
-              <span>Нажмите на зуб, который вас беспокоит</span>
+              <span>Отметьте зубы. Нажмите ещё раз, чтобы снять выделение</span>
             </div>
           </div>
           <div className="navigator-controls">
             <div className="selected-tooth">
-              <div className="tooth-number">{selected}</div>
-              <div>
-                <span className="tiny">ВЫБРАННЫЙ ЗУБ</span>
-                <h3>{tooth.name}</h3>
-                <p>
-                  {tooth.jaw === "upper" ? "Верхняя" : "Нижняя"} челюсть ·{" "}
-                  {tooth.side === "left" ? "слева" : "справа"} у пациента
-                </p>
+              <div className="tooth-number">
+                {selected.length === 1 ? selected[0] : selected.length}
               </div>
-              <Check size={20} />
+              <div>
+                <span className="tiny">
+                  {selected.length === 1 ? "ВЫБРАННЫЙ ЗУБ" : "ВЫБРАНО ЗУБОВ"}
+                </span>
+                <h3>
+                  {tooth?.name ||
+                    (selected.length
+                      ? "Зубы: " +
+                        [...selected].sort((a, b) => a - b).join(", ")
+                      : "Выберите один или несколько зубов")}
+                </h3>
+                {tooth && (
+                  <p>
+                    {tooth.jaw === "upper" ? "Верхняя" : "Нижняя"} челюсть ·{" "}
+                    {tooth.side === "left" ? "слева" : "справа"} у пациента
+                  </p>
+                )}
+              </div>
+              {selected.length > 0 && (
+                <button
+                  className="tooth-reset"
+                  aria-label="Сбросить выбор зубов"
+                  onClick={() => setSelected([])}
+                >
+                  Сбросить
+                </button>
+              )}
             </div>
             <h4>Что вас беспокоит?</h4>
             <div className="symptom-grid">
@@ -220,11 +249,6 @@ export function ToothNavigator({
                 </Button>
               </div>
             </div>
-            <p className="medical-note">
-              <Info size={15} />
-              Схема помогает сориентироваться и не заменяет диагностику. План и
-              стоимость лечения определяются после осмотра.
-            </p>
           </div>
         </div>
       </div>

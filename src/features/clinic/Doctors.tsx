@@ -1,23 +1,19 @@
 import { useState } from "react";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { doctors } from "../../data/doctors";
-import {
-  specialtyLabels,
-  type BookingIntent,
-  type Doctor,
-} from "../../types/domain";
+import { type BookingIntent, type Doctor } from "../../types/domain";
 import { SectionHeading } from "../../components/SectionHeading";
 import { Button } from "../../components/ui/button";
 import { Modal, markFocus } from "../../components/ui/dialog";
-export function Doctors({ onBook }: { onBook: (i: BookingIntent) => void }) {
+export function Doctors(_: { onBook: (i: BookingIntent) => void }) {
   const [selected, setSelected] = useState<Doctor | null>(null);
   const [all, setAll] = useState(false);
   return (
     <section id="doctors" className="section">
       <div className="container">
         <SectionHeading
-          title="Наши врачи"
-          text="Терапевты, хирург, ортодонт и ортопед. Откройте карточку, чтобы узнать больше о специалисте."
+          title="Врачи"
+          text="Специалисты московских клиник. В каждой карточке — сведения о враче и ссылка на официальный профиль."
           action={
             <Button variant="outline" onClick={() => setAll(!all)}>
               {all ? "Показать меньше" : "Все специалисты"}
@@ -26,7 +22,7 @@ export function Doctors({ onBook }: { onBook: (i: BookingIntent) => void }) {
           }
         />
         <div className="doctors-grid">
-          {doctors.slice(0, all ? 6 : 4).map((d, i) => (
+          {doctors.slice(0, all ? 6 : 4).map((d) => (
             <button
               key={d.id}
               className="doctor-card"
@@ -40,22 +36,19 @@ export function Doctors({ onBook }: { onBook: (i: BookingIntent) => void }) {
                 role="img"
                 aria-label={`Портрет: ${d.name}`}
                 style={{
-                  backgroundImage: "url(/images/team.jpg)",
-                  backgroundSize: "300% 200%",
-                  backgroundPosition: `${(i % 3) * 50}% ${i < 3 ? 0 : 100}%`,
+                  backgroundImage: `url(${d.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center 20%",
                 }}
               >
-                <span className="doctor-experience">
-                  {d.experienceYears} лет практики
-                </span>
                 <span className="doctor-arrow">
                   <ArrowUpRight size={20} />
                 </span>
               </div>
               <div className="doctor-info">
                 <h3>{d.name}</h3>
-                <p>{specialtyLabels[d.specialty]}</p>
-                <span className="tiny">Знакомство с врачом</span>
+                <p>{d.displaySpecialty}</p>
+                <span className="tiny">{d.clinicName}</span>
               </div>
             </button>
           ))}
@@ -67,29 +60,21 @@ export function Doctors({ onBook }: { onBook: (i: BookingIntent) => void }) {
           if (!o) setSelected(null);
         }}
         title={selected?.name || "Врач"}
-        description={selected ? specialtyLabels[selected.specialty] : undefined}
+        description={selected?.displaySpecialty}
       >
         {selected && (
           <div className="doctor-modal">
-            <span className="pill">
-              {selected.experienceYears} лет практики
-            </span>
+            <p className="tiny">Клиника «{selected.clinicName}»</p>
             <p>{selected.bio}</p>
-            <h4>Подход к лечению</h4>
-            <p>
-              Подробно объясняет варианты, согласует план и помогает чувствовать
-              себя спокойно на каждом этапе.
-            </p>
-            <Button
-              onClick={() => {
-                const d = selected;
-                setSelected(null);
-                onBook({ doctorId: d.id, specialty: d.specialty });
-              }}
+
+            <a
+              className="btn btn-primary"
+              href={selected.profileUrl}
+              target="_blank"
+              rel="noreferrer"
             >
-              Записаться к врачу
-              <ArrowRight size={16} />
-            </Button>
+              Профиль на сайте клиники <ArrowUpRight size={16} />
+            </a>
           </div>
         )}
       </Modal>
