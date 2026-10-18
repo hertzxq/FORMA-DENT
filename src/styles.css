@@ -3769,3 +3769,92 @@ input[type="checkbox"] {
     min-height: 240px;
   }
 }
+
+/* Quiet motion: disclosure follows its content; hover stays small and immediate. */
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    grid-template-rows 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease,
+    visibility 0s 320ms;
+}
+.faq-answer.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    grid-template-rows 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease,
+    visibility 0s;
+}
+.faq-answer-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+.faq-answer p {
+  transform: translateY(-8px);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.faq-answer.is-open p {
+  transform: translateY(0);
+}
+.faq-indicator {
+  display: flex;
+  flex-shrink: 0;
+}
+.btn,
+.treatment-card,
+.doctor-card,
+.package-card {
+  transition:
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 240ms ease,
+    background-color 200ms,
+    border-color 200ms,
+    color 200ms;
+}
+.btn svg {
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
+  .btn:hover:not(:disabled) svg {
+    transform: translate(2px, -1px);
+  }
+  .treatment-card:hover,
+  .package-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px #263b3010;
+  }
+  .doctor-card:hover {
+    transform: translateY(-4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-answer,
+  .faq-answer p,
+  .btn,
+  .btn svg,
+  .treatment-card,
+  .doctor-card,
+  .package-card {
+    transition: none !important;
+  }
+  .faq-answer p,
+  .btn:hover:not(:disabled),
+  .btn:active:not(:disabled),
+  .btn:hover:not(:disabled) svg,
+  .treatment-card:hover,
+  .doctor-card:hover,
+  .package-card:hover {
+    transform: none;
+  }
+}

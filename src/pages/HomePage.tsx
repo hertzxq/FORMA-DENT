@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useScrollReveal } from "../lib/useScrollReveal";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
@@ -29,10 +30,12 @@ import { mapLocations } from "../data/mapLocations";
 export function HomePage() {
   const { openBooking } = useBooking();
   const reduced = useReducedMotion();
+  const mainRef = useRef<HTMLElement>(null);
+  useScrollReveal(mainRef);
   const [faq, setFaq] = useState<number | null>(0);
   const [branch, setBranch] = useState(0);
   return (
-    <main id="main">
+    <main id="main" ref={mainRef}>
       <section className="hero container">
         <motion.div
           className="hero-copy"
@@ -238,9 +241,23 @@ export function HomePage() {
                   aria-controls={"faq-" + i}
                 >
                   {f.q}
-                  {faq === i ? <Minus size={18} /> : <Plus size={18} />}
+                  <motion.span
+                    className="faq-indicator"
+                    animate={{ rotate: faq === i ? 180 : 0 }}
+                    transition={{ duration: reduced ? 0 : 0.3 }}
+                  >
+                    {faq === i ? <Minus size={18} /> : <Plus size={18} />}
+                  </motion.span>
                 </button>
-                {faq === i && <p id={"faq-" + i}>{f.a}</p>}
+                <div
+                  id={"faq-" + i}
+                  className={"faq-answer" + (faq === i ? " is-open" : "")}
+                  aria-hidden={faq !== i}
+                >
+                  <div className="faq-answer-inner">
+                    <p>{f.a}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
