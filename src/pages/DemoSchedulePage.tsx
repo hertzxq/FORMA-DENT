@@ -26,7 +26,11 @@ export function DemoSchedulePage() {
       </a>
       <SectionHeading
         eyebrow="УПРАВЛЕНИЕ ДЕМОНСТРАЦИЕЙ"
-        title="Демонстрационное расписание"
+        title={
+          <span id="demo-heading" tabIndex={-1} data-dialog-focus-fallback>
+            Демонстрационное расписание
+          </span>
+        }
         text="Здесь только анонимные записи из вашего браузера. Имена и телефоны не сохраняются."
         action={
           <Button

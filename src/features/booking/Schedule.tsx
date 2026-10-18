@@ -89,7 +89,7 @@ export function Schedule() {
         <SectionHeading
           eyebrow="БЕЗ ЗВОНКОВ И ОЖИДАНИЯ"
           title={
-            <span id="booking-heading" tabIndex={-1}>
+            <span id="booking-heading" tabIndex={-1} data-dialog-focus-fallback>
               Ваше время для заботы о себе
             </span>
           }
@@ -249,6 +249,12 @@ export function Schedule() {
                 {available} свободных интервалов
               </span>
             </div>
+            {slots.length > 0 && available === 0 && (
+              <p className="availability-hint" role="status">
+                Свободных интервалов нет. Выберите другой день или измените
+                филиал.
+              </p>
+            )}
             {slots.length ? (
               <div className="time-slots">
                 {slots.map((s) => (

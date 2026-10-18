@@ -1,6 +1,7 @@
 import * as D from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import type { ReactNode } from "react";
+import { restoreDialogFocus } from "../../lib/focus";
 export function Modal({
   open,
   onOpenChange,
@@ -23,14 +24,7 @@ export function Modal({
         <D.Content
           className={"modal-content " + (wide ? "modal-wide" : "")}
           onCloseAutoFocus={(e) => {
-            const target = document.querySelector<HTMLElement>(
-              '[data-last-focus="true"]',
-            );
-            if (target) {
-              e.preventDefault();
-              target.focus();
-              target.removeAttribute("data-last-focus");
-            }
+            if (restoreDialogFocus(document)) e.preventDefault();
           }}
         >
           <D.Title className="modal-title">{title}</D.Title>

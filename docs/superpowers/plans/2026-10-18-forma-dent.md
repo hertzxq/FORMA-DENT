@@ -1,5 +1,7 @@
 # FORMA DENT Implementation Plan
 
+Статус: реализация завершена. Фактические проверки, исправления и отклонения от последовательности коммитов описаны в `docs/verification.md`. Исходный checklist ниже сохранён как план, а не как отчёт о выполнении.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Создать полноценный локальный демонстрационный сайт стоматологии с выбором зуба, подбором лечения, безопасной онлайн-записью и печатным заявлением.

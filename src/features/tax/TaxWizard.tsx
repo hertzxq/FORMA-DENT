@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { ArrowRight, ArrowLeft, Printer, Check, FileText } from "lucide-react";
 import type { TaxApplication } from "../../types/domain";
 import { branches } from "../../data/branches";
@@ -26,6 +26,13 @@ export function TaxWizard() {
   };
   const [form, setForm] = useState(initial);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const mappedErrors = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(errors).map(([key, value]) => ["tax-" + key, value]),
+      ),
+    [errors],
+  );
   function close(v: boolean) {
     setOpen(v);
     if (!v) {
@@ -142,11 +149,7 @@ export function TaxWizard() {
                 ][step]
               }
             </h3>
-            <ErrorSummary
-              errors={Object.fromEntries(
-                Object.entries(errors).map(([k, v]) => ["tax-" + k, v]),
-              )}
-            />
+            <ErrorSummary errors={mappedErrors} />
             {step === 0 && (
               <>
                 <label htmlFor="tax-year">

@@ -576,7 +576,7 @@ svg {
 .tooth text {
   font-size: 10px;
   text-anchor: middle;
-  fill: #7a8572;
+  fill: #59684f;
   font-family: Arial, sans-serif;
 }
 .tooth.selected text {
@@ -590,12 +590,12 @@ svg {
 .jaw-label {
   font-size: 8px;
   letter-spacing: 2px;
-  fill: #7a8572;
+  fill: #59684f;
   text-anchor: middle;
 }
 .jaw-side {
   font-size: 11px;
-  fill: #788671;
+  fill: #59684f;
   text-anchor: middle;
 }
 .jaw-help {
@@ -676,7 +676,7 @@ svg {
 }
 .symptom.active {
   background: #dfe8d5;
-  border-color: #7e936d;
+  border-color: #59645d;
   color: #3d5534;
 }
 .recommendation {
@@ -720,7 +720,7 @@ svg {
   border-bottom: 1px solid #e4e8df;
 }
 .recommendation-services button:hover {
-  color: #799065;
+  color: #59645d;
 }
 .recommendation-services button span:last-child {
   display: flex;
@@ -794,7 +794,7 @@ svg {
   gap: 8px;
   padding: 0 12px;
   width: 220px;
-  color: #76806e;
+  color: #59645d;
   flex-shrink: 0;
 }
 .search-input input {
@@ -822,7 +822,7 @@ svg {
 }
 .service-index {
   font-size: 10px;
-  color: #839077;
+  color: #59645d;
   width: 27px;
   flex-shrink: 0;
 }
@@ -887,7 +887,7 @@ svg {
   margin-top: 5px;
 }
 .included-item svg {
-  color: #789061;
+  color: #59645d;
 }
 .service-details .price-range {
   font-size: 13px;
@@ -948,7 +948,7 @@ svg {
   align-items: center;
 }
 .package-card li svg {
-  color: #71895e;
+  color: #59645d;
 }
 .package-card .package-extra {
   font-size: 9px;
@@ -1022,7 +1022,7 @@ svg {
 .doctor-info .tiny {
   display: block;
   font-size: 9px;
-  color: #71845f;
+  color: #59645d;
   margin-top: 13px;
 }
 .booking-section {
@@ -1202,17 +1202,17 @@ svg {
 }
 .time-slots button:hover:not(:disabled) {
   background: #dce6d1;
-  border-color: #7a925f;
+  border-color: #59645d;
 }
 .time-slots button:disabled {
   background: #efefea;
-  color: #87907f;
+  color: #59645d;
   border-color: #e0e3d8;
   font-size: 10px;
 }
 .time-slots button span {
   font-size: 7px;
-  color: #727b6b;
+  color: #59645d;
 }
 .calendar-footer {
   display: flex;
@@ -1452,7 +1452,7 @@ svg {
 .review-stars {
   display: flex;
   gap: 3px;
-  color: #76885e;
+  color: #59645d;
 }
 .review-card > p {
   font-size: 12px;
@@ -1577,7 +1577,7 @@ svg {
   margin-bottom: 14px;
 }
 .contact-detail svg {
-  color: #7c8e67;
+  color: #59645d;
 }
 .contact-card > .tiny {
   margin-top: 22px;
@@ -1707,7 +1707,7 @@ svg {
   top: 15%;
   font-size: 7px;
   letter-spacing: 1.7px;
-  color: #8d9d7b;
+  color: #59645d;
   transform: rotate(-15deg);
 }
 .final-cta {
@@ -1898,7 +1898,7 @@ input[type="checkbox"] {
   font-size: 11px;
   display: grid;
   gap: 7px;
-  color: #8c332c;
+  color: #59645d;
 }
 .error-summary a {
   text-decoration: underline;
@@ -2031,7 +2031,7 @@ input[type="checkbox"] {
   align-items: center;
   gap: 7px;
   font-size: 10px;
-  color: #75836b;
+  color: #59645d;
 }
 .wizard-steps span {
   display: grid;
@@ -3431,4 +3431,29 @@ input[type="checkbox"] {
   .hero h1 br:last-child {
     display: initial;
   }
+}
+/* Three package cards need more room than a narrow tablet track provides. */
+@media (min-width: 761px) and (max-width: 900px) {
+  .packages-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .package-card {
+    padding: 30px;
+  }
+  .package-card .btn {
+    width: fit-content;
+  }
+  .package-card .package-extra {
+    min-height: 0;
+  }
+}
+.availability-hint {
+  font-size: 12px;
+  line-height: 1.7;
+  padding: 13px 15px;
+  margin-bottom: 15px;
+  background: #e7eddf;
+  border: 1px solid #cdd8c1;
+  border-radius: 8px;
+  color: #465e3b;
 }
