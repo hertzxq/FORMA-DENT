@@ -40,7 +40,7 @@ export function Gallery({
         onOpenChange={(o) => {
           if (!o) setSelected(null);
         }}
-        title="Пространство FORMA DENT"
+        title="Пространство ЛАД ДЕНТ"
         description={selected !== null ? images[selected].alt : undefined}
         wide
       >

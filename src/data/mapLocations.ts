@@ -1,4 +1,4 @@
-// Existing clinics used only as geographic references, not FORMA DENT branches.
+// Existing clinics used only as geographic references, not ЛАД ДЕНТ branches.
 export const mapLocations: Record<
   string,
   { name: string; address: string; mapUrl: string; embedUrl: string }

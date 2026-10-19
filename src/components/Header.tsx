@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 import { useBooking } from "../features/booking/BookingContext";
 export function Brand() {
   return (
-    <a className="brand" href={siteUrl()} aria-label="FORMA DENT — главная">
+    <a className="brand" href={siteUrl()} aria-label="ЛАД ДЕНТ — главная">
       <svg
         className="brand-mark"
         viewBox="0 0 40 40"
@@ -13,13 +13,12 @@ export function Brand() {
         aria-hidden="true"
       >
         <path
-          d="M8 30V10h17M8 19h13M20 30V10h7c10 0 10 20 0 20h-7Z"
+          d="M5 30c4 0 5-5 6-13l1-7h6v20M22 30l3-20h8v20M21 30h15v5M21 30v5"
           stroke="currentColor"
           strokeWidth="2.1"
         />
-        <path d="M14 7v26" stroke="currentColor" opacity=".4" />
       </svg>
-      <span>FORMA DENT</span>
+      <span>ЛАД ДЕНТ</span>
     </a>
   );
 }

@@ -10,7 +10,7 @@ export function TaxStatement({
   return (
     <article className="tax-statement" id="print-statement">
       <div className="statement-brand">
-        FORMA DENT <span>Демонстрационный проект</span>
+        ЛАД ДЕНТ <span>Демонстрационный проект</span>
       </div>
       <p>
         В администрацию филиала «
