@@ -272,8 +272,8 @@ svg {
 .header-inner {
   display: flex;
   align-items: center;
-  gap: 30px;
-  height: 96px;
+  gap: 32px;
+  height: 108px;
 }
 .brand {
   display: flex;
@@ -297,11 +297,25 @@ svg {
   letter-spacing: 1.2px;
   margin-top: 5px;
 }
+.header .brand > span {
+  font-size: 24px;
+  letter-spacing: 2px;
+}
+.header .brand-mark {
+  width: 44px;
+  height: 44px;
+}
+.header-book {
+  min-height: 50px;
+  padding: 14px 24px;
+  font-size: 14px;
+  gap: 20px;
+}
 .desktop-nav {
   margin-left: auto;
   display: flex;
-  gap: 25px;
-  font-size: 11px;
+  gap: 32px;
+  font-size: 16px;
 }
 .desktop-nav a {
   padding: 12px 0;
@@ -2231,8 +2245,11 @@ input[type="checkbox"] {
     font-size: 5px;
   }
   .desktop-nav {
-    gap: 17px;
-    font-size: 10px;
+    gap: 24px;
+    font-size: 14px;
+  }
+  .header .brand > span {
+    font-size: 21px;
   }
   .hero h1 {
     font-size: 66px;
@@ -2323,9 +2340,9 @@ input[type="checkbox"] {
   .mobile-nav a {
     display: flex;
     justify-content: space-between;
-    padding: 14px 0;
+    padding: 17px 0;
     border-bottom: 1px solid #e0e6d7;
-    font-size: 13px;
+    font-size: 16px;
   }
   .hero {
     gap: 22px;
@@ -2565,8 +2582,16 @@ input[type="checkbox"] {
     display: none;
   }
   .header-inner {
-    height: 78px;
+    height: 84px;
     gap: 12px;
+  }
+  .header .brand > span {
+    font-size: 18px;
+    letter-spacing: 1.5px;
+  }
+  .header .brand-mark {
+    width: 36px;
+    height: 36px;
   }
   .brand-mark {
     width: 32px;
@@ -2581,14 +2606,14 @@ input[type="checkbox"] {
     letter-spacing: 0.7px;
   }
   .header-book {
-    min-height: 38px;
-    padding: 9px 12px;
-    font-size: 10px;
-    gap: 10px;
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 12px;
+    gap: 8px;
   }
   .mobile-menu-button {
-    width: 35px;
-    min-width: 35px;
+    width: 44px;
+    min-width: 44px;
   }
   .mobile-nav {
     padding-inline: 20px;
@@ -3905,5 +3930,26 @@ input[type="checkbox"] {
   }
   .footer-medical {
     width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .header-book svg {
+    display: none;
+  }
+  .header .brand > span {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+  .header .brand-mark {
+    width: 32px;
+    height: 32px;
+  }
+  .header-inner {
+    gap: 8px;
+  }
+  .header-book {
+    padding-inline: 10px;
+    font-size: 11px;
   }
 }
