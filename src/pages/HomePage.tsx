@@ -1,3 +1,4 @@
+import { siteUrl } from "../lib/siteUrl";
 import { useRef, useState } from "react";
 import { useScrollReveal } from "../lib/useScrollReveal";
 import { motion, useReducedMotion } from "framer-motion";
@@ -83,7 +84,7 @@ export function HomePage() {
           transition={{ duration: 0.8 }}
         >
           <img
-            src="/images/clinic.jpg"
+            src={siteUrl("/images/clinic.jpg")}
             alt="Приёмная стоматологической клиники"
             fetchPriority="high"
             width="1536"
@@ -208,22 +209,22 @@ export function HomePage() {
       <Gallery
         images={[
           {
-            src: "/images/clinic.jpg",
+            src: siteUrl("/images/clinic.jpg"),
             alt: "Приёмная",
           },
           {
-            src: "/images/room.jpg",
+            src: siteUrl("/images/room.jpg"),
             alt: "Стоматологический кабинет",
           },
           {
-            src: "/images/lounge.jpg",
+            src: siteUrl("/images/lounge.jpg"),
             alt: "Зона ожидания",
           },
         ]}
       />
       <BeforeAfter
-        before="/images/smile-before.svg"
-        after="/images/smile-after.svg"
+        before={siteUrl("/images/smile-before.svg")}
+        after={siteUrl("/images/smile-after.svg")}
       />
       <section className="section faq-section">
         <div className="container faq-layout">

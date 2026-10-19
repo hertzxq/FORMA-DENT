@@ -10,7 +10,8 @@ export default function App() {
         Перейти к содержимому
       </a>
       <Header />
-      {location.pathname.replace(/\/$/, "") === "/demo-schedule" ? (
+      {location.pathname.replace(/\/$/, "") ===
+      (import.meta.env.BASE_URL + "demo-schedule").replace(/\/$/, "") ? (
         <DemoSchedulePage />
       ) : (
         <HomePage />

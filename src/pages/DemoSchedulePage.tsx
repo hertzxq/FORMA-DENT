@@ -1,3 +1,4 @@
+import { siteUrl } from "../lib/siteUrl";
 import { useState } from "react";
 import { ArrowLeft, RotateCcw, CalendarDays } from "lucide-react";
 import { useBooking } from "../features/booking/BookingContext";
@@ -20,7 +21,7 @@ export function DemoSchedulePage() {
   const seed = getSeedAppointments(date);
   return (
     <main id="main" className="section container demo-page">
-      <a className="text-link" href="/">
+      <a className="text-link" href={siteUrl()}>
         <ArrowLeft size={17} />
         На главную
       </a>
@@ -79,7 +80,7 @@ export function DemoSchedulePage() {
           <h3>Локальных записей пока нет</h3>
           <p>Выберите услугу и время на главной странице.</p>
           <Button asChild>
-            <a href="/#booking">Перейти к записи</a>
+            <a href={siteUrl("#booking")}>Перейти к записи</a>
           </Button>
         </div>
       )}

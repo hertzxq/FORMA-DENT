@@ -1,10 +1,11 @@
+import { isHomePath, siteUrl } from "../lib/siteUrl";
 import { useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useBooking } from "../features/booking/BookingContext";
 export function Brand() {
   return (
-    <a className="brand" href="/" aria-label="FORMA DENT — главная">
+    <a className="brand" href={siteUrl()} aria-label="FORMA DENT — главная">
       <svg
         className="brand-mark"
         viewBox="0 0 40 40"
@@ -38,7 +39,7 @@ export function Header() {
           <Brand />
           <nav className="desktop-nav" aria-label="Основная навигация">
             {links.map(([title, id]) => (
-              <a key={id} href={"/#" + id}>
+              <a key={id} href={siteUrl("#" + id)}>
                 {title}
               </a>
             ))}
@@ -47,7 +48,8 @@ export function Header() {
             size="sm"
             className="header-book"
             onClick={() => {
-              if (location.pathname !== "/") location.href = "/#booking";
+              if (!isHomePath(location.pathname))
+                location.href = siteUrl("#booking");
               else openBooking({});
             }}
           >
@@ -66,7 +68,11 @@ export function Header() {
         {mobile && (
           <nav className="mobile-nav" aria-label="Мобильная навигация">
             {links.map(([title, id]) => (
-              <a key={id} href={"/#" + id} onClick={() => setMobile(false)}>
+              <a
+                key={id}
+                href={siteUrl("#" + id)}
+                onClick={() => setMobile(false)}
+              >
                 {title}
                 <ArrowUpRight size={16} />
               </a>

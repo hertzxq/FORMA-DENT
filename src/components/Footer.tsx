@@ -1,3 +1,4 @@
+import { siteUrl } from "../lib/siteUrl";
 import { Brand } from "./Header";
 export function Footer() {
   return (
@@ -6,7 +7,7 @@ export function Footer() {
         <div className="footer-main">
           <Brand />
           <p>Стоматология, в которой человек всегда на первом месте.</p>
-          <a href="/#">Наверх ↑</a>
+          <a href={siteUrl("#")}>Наверх ↑</a>
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} FORMA DENT</span>
